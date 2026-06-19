@@ -7,15 +7,22 @@ export const options = {
 
 export default function () {
     const url = 'http://localhost:3000/login'
-    const payload = {
-        "username": "julio.lima",
-        "senha": "123456"
-    }
+    const payload = JSON.stringify({
+        username: "julio.lima",
+        senha: "123456"
+    })
     const params = {
         headers: {
             "Content-Type": "application/json"
         }
     }
 
-    http.post(url, payload, params)
+    const res = http.post(url, payload, params)
+    console.log(res.body)
+    check(res, {
+        'status 200': (r) => r.status === 200,
+        'validar se o token é uma string': (r) => typeof(r.json().token) == 'string'
+    })
+
+    sleep(1)
 }
