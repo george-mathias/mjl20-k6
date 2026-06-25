@@ -4,5 +4,5 @@ k6 run ./tests/login.test.js
 **gerando relatorio web**  
 K6_WEB_DASHBOARD=true k6 run ./tests/login.test.js  
 
-**gerando relatorio web e exportando**  
+**gerando e exportando relatorio web**  
 K6_WEB_DASHBOARD=true K6_WEB_DASHBOARD_EXPORT=html-report.html k6 run ./tests/login.test.js
