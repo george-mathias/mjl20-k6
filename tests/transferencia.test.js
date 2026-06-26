@@ -1,6 +1,7 @@
 import http from 'k6/http';
 import { sleep, check } from 'k6';
 import { obterToken } from '../helpers/autenticacao.js'
+import { retornaBaseUrl } from "../utils/variaveis.js";
 const transferencia = JSON.parse(open("../fixtures/postTransferencias.json"));
 
 export const options = {
@@ -20,7 +21,7 @@ export const options = {
 };
 
 export default function () {
-    const url = 'http://localhost:3000/transferencias';
+    const url = `${retornaBaseUrl()}/transferencias`;
     const token = obterToken();
     const payload = JSON.stringify(transferencia)
     const params = {
