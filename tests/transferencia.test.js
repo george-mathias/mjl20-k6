@@ -1,0 +1,30 @@
+import http from 'k6/http';
+import { sleep, check } from 'k6';
+import { obterToken } from '../helpers/autenticacao.js'
+const transferencia = JSON.parse(open("../fixtures/postTransferencias.json"));
+
+export const options = {
+    iterations: 1
+};
+
+export default function () {
+    const url = 'http://localhost:3000/transferencias';
+    const token = obterToken();
+    const payload = JSON.stringify({
+        "contaOrigem": 1,
+        "contaDestino": 2,
+        "valor": 10,
+        "token": ""
+    })
+    const params = {
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+        }
+    }
+
+    const res = http.post(url, payload, params)
+    check(res, { "status is 201": (res) => res.status === 201 });
+
+    sleep(1);
+}
